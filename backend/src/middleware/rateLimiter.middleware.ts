@@ -12,7 +12,7 @@ export const generalLimiter = rateLimit({
     res.status(429).json({
       success: false,
       error: "Too many requests",
-      retryAfter: Math.ceil((req.rateLimit.resetTime!.getTime() - Date.now()) / 1000)
+      retryAfter: Math.ceil(((req as any).rateLimit.resetTime!.getTime() - Date.now()) / 1000)
     })
   }
 })
@@ -32,7 +32,7 @@ export const authLimiter = rateLimit({
 export const aiLimiter = rateLimit({
   windowMs: 60 * 1000,
   max: 20,
-  keyGenerator: (req: Request) => req.user?.userId || req.ip,
+  keyGenerator: (req: Request) => req.user?.userId || req.ip || "unknown",
   handler: (req, res) => {
     res.status(429).json({
       success: false,

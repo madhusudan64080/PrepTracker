@@ -34,14 +34,17 @@ interface RefreshPayload {
 
 export function generateAccessToken(userId: string, email: string): string {
   const payload: AccessPayload = { userId, email, type: "access" }
-  return jwt.sign(payload, ACCESS_SECRET, { expiresIn: ACCESS_EXPIRES })
+  return jwt.sign(payload, ACCESS_SECRET as jwt.Secret, {
+  expiresIn: ACCESS_EXPIRES as jwt.SignOptions["expiresIn"]
+})
 }
-
 /* ── Generate Refresh Token ─────────────────────────────────────────────── */
 
 export function generateRefreshToken(userId: string): string {
   const payload: RefreshPayload = { userId, type: "refresh" }
-  return jwt.sign(payload, REFRESH_SECRET, { expiresIn: REFRESH_EXPIRES })
+  return jwt.sign(payload, REFRESH_SECRET as jwt.Secret, {
+  expiresIn: REFRESH_EXPIRES as jwt.SignOptions["expiresIn"]
+})
 }
 
 /* ── Verify Access Token ────────────────────────────────────────────────── */
