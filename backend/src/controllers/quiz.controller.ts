@@ -108,12 +108,12 @@ export async function submitQuizAttempt(
       const q = questionMap[a.questionId]
 
       const isCorrect = a.selectedAnswer === q.correctAnswer
-
-      breakdown[q.difficulty].total++
+      type Difficulty = "easy" | "medium" | "hard"
+      breakdown[q.difficulty as Difficulty].total++
 
       if (isCorrect) {
         correct++
-        breakdown[q.difficulty].correct++
+        breakdown[q.difficulty as Difficulty].correct++
       } else {
         wrongAnswers.push({
           question: q.question,

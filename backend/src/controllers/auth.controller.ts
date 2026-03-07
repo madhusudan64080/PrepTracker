@@ -51,8 +51,8 @@ export async function register(req: Request, res: Response, next: NextFunction) 
 
     const userObj = user.toObject()
 
-    delete userObj.passwordHash
-    delete userObj.refreshTokens
+    delete (userObj as any).passwordHash
+    delete (userObj as any).refreshTokens
 
     res.status(201).json({
       success: true,
@@ -108,8 +108,8 @@ export async function login(req: Request, res: Response, next: NextFunction) {
 
     const userObj = user.toObject()
 
-    delete userObj.passwordHash
-    delete userObj.refreshTokens
+    delete (userObj as any).passwordHash
+    delete (userObj as any).refreshTokens
 
     res.json({
       success: true,
@@ -229,8 +229,8 @@ export async function getMe(req: Request, res: Response, next: NextFunction) {
 
     const userObj = user.toObject()
 
-    delete userObj.passwordHash
-    delete userObj.refreshTokens
+    delete (userObj as any).passwordHash
+    delete (userObj as any).refreshTokens
 
     res.json({
       success: true,
@@ -275,8 +275,8 @@ export async function updateProfile(req: Request, res: Response, next: NextFunct
 
     const userObj = user.toObject()
 
-    delete userObj.passwordHash
-    delete userObj.refreshTokens
+    delete (userObj as any).passwordHash
+    delete (userObj as any).refreshTokens
 
     res.json({
       success: true,
@@ -331,8 +331,8 @@ export async function completeOnboarding(
 
     const userObj = user.toObject()
 
-    delete userObj.passwordHash
-    delete userObj.refreshTokens
+    delete (userObj as any).passwordHash
+    delete (userObj as any).refreshTokens
 
     res.json({
       success: true,

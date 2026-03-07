@@ -103,23 +103,29 @@ populate:{ path:"subjectId"}
 
 const result = schedules.map((s:any)=>{
 
-const overdue = s.nextReviewDate < today
+const topic = s.topicId as any
+const subject = topic?.subjectId as any
+const overdue = s.nextReviewDate && s.nextReviewDate < today
 
 return {
 scheduleId:s.id,
-topicName:s.topicId.name,
-subjectName:s.topicId.subjectId?.name,
+topicName: topic?.name,
+subjectName: subject?.name,
 nextReviewDate:s.nextReviewDate,
 status: overdue ? "overdue":"due"
 }
 })
 
 return result.sort((a,b)=>{
+
 if(a.status==="overdue" && b.status!=="overdue") return -1
-return new Date(a.nextReviewDate).getTime() - new Date(b.nextReviewDate).getTime()
+
+const aTime = a.nextReviewDate ? new Date(a.nextReviewDate).getTime() : 0
+const bTime = b.nextReviewDate ? new Date(b.nextReviewDate).getTime() : 0
+
+return aTime - bTime
 })
 }
-
 async getRevisionCalendar(userId: string, daysAhead=14){
 
 const start=new Date()
@@ -140,15 +146,18 @@ const map:any={}
 
 for(const s of schedules){
 
-const date=s.nextReviewDate.toISOString().slice(0,10)
+if(!s.nextReviewDate) continue
 
-if(!map[date]) map[date]={date,count:0,topics:[]}
+const date = s.nextReviewDate.toISOString().slice(0,10)
 
+if(!map[date]) map[date] = { date, count:0, topics:[] }
 map[date].count++
+const topic = s.topicId as any
+const subject = topic?.subjectId as any
 
 map[date].topics.push({
-topicName:s.topicId.name,
-subjectName:s.topicId.subjectId?.name
+topicName: topic?.name,
+subjectName: subject?.name
 })
 }
 

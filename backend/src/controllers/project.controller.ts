@@ -161,6 +161,7 @@ export async function completeStage(req: Request, res: Response, next: NextFunct
     }
 
     const stage = project.stages.find((s: any) => s.stageNumber === Number(stageNumber))
+    if (!stage) return res.status(404).json({ message: "Stage not found" })
 
     stage.status = "completed"
     stage.completedAt = new Date()

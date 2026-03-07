@@ -1,5 +1,5 @@
 // backend/src/utils/spacedRepetition.ts
-
+import mongoose from "mongoose"
 import { IRevisionSchedule } from "../models/RevisionSchedule.model"
 
 export interface SM2Result {
@@ -92,7 +92,7 @@ export function getInitialSchedule(
   tomorrow.setDate(tomorrow.getDate() + 1)
 
   return {
-    topicId,
+    topicId: new mongoose.Types.ObjectId(topicId),
     userId: userId as any,
     efFactor: 2.5,
     repetition: 0,

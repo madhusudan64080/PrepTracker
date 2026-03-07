@@ -298,7 +298,7 @@ export async function updateTopicProgress(req: Request, res: Response, next: Nex
       })
     }
 
-    progress.sectionsCompleted[section] = completed
+    (progress.sectionsCompleted as any)[section] = completed
 
     const completedSections = Object.values(progress.sectionsCompleted).filter(Boolean).length
 
