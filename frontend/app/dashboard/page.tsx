@@ -171,7 +171,11 @@ function SubjectGrid({ onAddSubject }: { onAddSubject: () => void }) {
    SCHEDULER MODAL
 ═══════════════════════════════════════════════════════════════ */
 // FIXED — value matches backend enum exactly
-const FREQ_OPTIONS = [
+const FREQ_OPTIONS: {
+  label: string
+  sub: string
+  value: "daily" | "every_2_days" | "every_3_days" | "weekly"
+}[] = [
   { label: "Every Day",    sub: "7 days/week",   value: "daily" },
   { label: "Every 2 Days", sub: "3-4 days/week", value: "every_2_days" },
   { label: "Every 3 Days", sub: "2-3 days/week", value: "every_3_days" },
@@ -181,7 +185,9 @@ const FREQ_OPTIONS = [
 function SchedulerModal({ onClose, onCreated }: { onClose: () => void; onCreated: () => void }) {
   const { subjects } = subjectStore()
   const [subjectId,    setSubjectId]    = useState(subjects[0]?._id ?? "")
-  const [frequency,    setFrequency]    = useState("daily")
+  const [frequency, setFrequency] = useState<
+  "daily" | "every_2_days" | "every_3_days" | "weekly"
+>("daily")
   const [topicsPerDay, setTopicsPerDay] = useState(3)
   const [loading,      setLoading]      = useState(false)
   const [error,        setError]        = useState("")
