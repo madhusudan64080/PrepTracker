@@ -198,11 +198,15 @@ async function getProjectStageContent(
   const existing = await ProjectStageContent.findOne({ projectId, stageNumber }).lean()
   if (existing) return existing
 
-  const prompt = `Generate a detailed guide for stage ${stageNumber} of project "${project.title}".
-Description: "${project.description || ""}"
-Return JSON: {"title":"","overview":"","tasks":[{"task":"","estimatedHours":2}],"technicalNotes":"","resources":[]}`
-
-  const data = await aiService.callAI(prompt, 800)
+  
+  const data = await aiService.generateProjectStageContent(
+  project.title,
+  project.description || "",
+  project.techStack || [],
+  stageNumber,
+  `Stage ${stageNumber}`
+)
+const cacheKey = `project:${projectId}:stage:${stageNumber}`
   return ProjectStageContent.create({ projectId, stageNumber, ...data })
 }
 

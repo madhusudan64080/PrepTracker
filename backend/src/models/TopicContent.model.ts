@@ -98,9 +98,12 @@ const TopicContentSchema = new Schema<ITopicContent>(
       default: []
     },
 
-    quizQuestions: { type: Array, default: [] },
-    flashcards: { type: Array, default: [] },
-    interviewQuestions: { type: Array, default: [] },
+    quizQuestions: { type: [Object], default: [] },
+    flashcards: {
+  type: [Object],
+  default: []
+},
+    interviewQuestions: { type: [Object], default: [] },
 
     relatedTopics: { type: [String], default: [] },
 
