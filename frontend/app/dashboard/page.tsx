@@ -130,40 +130,42 @@ function SubjectGrid({ onAddSubject }: { onAddSubject: () => void }) {
           </button>
         </div>
       ) : (
-        <OverdueNotificationBanner />
-        <motion.div variants={container} initial="hidden" animate="show"
-          className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-3">
-          {subjects.map(s => {
-            const pct = s.totalTopics ? Math.round(((s.completedTopics ?? 0) / s.totalTopics) * 100) : 0
-            return (
-              <motion.button key={s._id} variants={fade}
-                onClick={() => router.push(`/subjects/${s._id}/topics`)}
-                className="text-left p-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 hover:border-white/15 transition-all group">
-                <div className="flex items-center gap-2 mb-2">
-                  <div className="w-8 h-8 rounded-lg flex items-center justify-center text-lg flex-shrink-0"
-                    style={{ background: s.color ?? "#6366f1" + "33" }}>
-                    {s.icon ?? "📚"}
+        <>
+          <OverdueNotificationBanner />
+          <motion.div variants={container} initial="hidden" animate="show"
+            className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-3">
+            {subjects.map(s => {
+              const pct = s.totalTopics ? Math.round(((s.completedTopics ?? 0) / s.totalTopics) * 100) : 0
+              return (
+                <motion.button key={s._id} variants={fade}
+                  onClick={() => router.push(`/subjects/${s._id}/topics`)}
+                  className="text-left p-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 hover:border-white/15 transition-all group">
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="w-8 h-8 rounded-lg flex items-center justify-center text-lg flex-shrink-0"
+                      style={{ background: (s.color ?? "#6366f1") + "33" }}>
+                      {s.icon ?? "📚"}
+                    </div>
+                    <span className="text-sm font-medium truncate">{s.name}</span>
                   </div>
-                  <span className="text-sm font-medium truncate">{s.name}</span>
-                </div>
-                <div className="h-1.5 bg-white/10 rounded-full overflow-hidden mb-1">
-                  <div className="h-full rounded-full transition-all duration-700"
-                    style={{ width: `${pct}%`, background: s.color ?? "#6366f1" }}/>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-xs text-slate-500">{s.completedTopics ?? 0}/{s.totalTopics ?? 0} topics</span>
-                  <ChevronRight size={12} className="text-slate-600 group-hover:text-indigo-400 transition-colors"/>
-                </div>
-              </motion.button>
-            )
-          })}
-          {/* always show add button as last tile */}
-          <motion.button variants={fade} onClick={onAddSubject}
-            className="text-center p-3 rounded-xl border-2 border-dashed border-white/10 hover:border-indigo-500/50 transition-colors flex flex-col items-center justify-center gap-1 min-h-[80px]">
-            <Plus size={18} className="text-slate-500"/>
-            <span className="text-xs text-slate-500">Add Subject</span>
-          </motion.button>
-        </motion.div>
+                  <div className="h-1.5 bg-white/10 rounded-full overflow-hidden mb-1">
+                    <div className="h-full rounded-full transition-all duration-700"
+                      style={{ width: `${pct}%`, background: s.color ?? "#6366f1" }}/>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs text-slate-500">{s.completedTopics ?? 0}/{s.totalTopics ?? 0} topics</span>
+                    <ChevronRight size={12} className="text-slate-600 group-hover:text-indigo-400 transition-colors"/>
+                  </div>
+                </motion.button>
+              )
+            })}
+            {/* always show add button as last tile */}
+            <motion.button variants={fade} onClick={onAddSubject}
+              className="text-center p-3 rounded-xl border-2 border-dashed border-white/10 hover:border-indigo-500/50 transition-colors flex flex-col items-center justify-center gap-1 min-h-[80px]">
+              <Plus size={18} className="text-slate-500"/>
+              <span className="text-xs text-slate-500">Add Subject</span>
+            </motion.button>
+          </motion.div>
+        </>
       )}
     </div>
   )

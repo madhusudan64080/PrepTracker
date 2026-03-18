@@ -19,12 +19,14 @@ async function startServer() {
       "MONGO_URI",
       "JWT_ACCESS_SECRET",
       "JWT_REFRESH_SECRET",
-      "OPENROUTER_API_KEY",
     ]
     const missing = REQUIRED_ENV.filter((k) => !process.env[k])
     if (missing.length) {
       console.error(`[Startup] Missing required env vars: ${missing.join(", ")}`)
       process.exit(1)
+    }
+    if (!process.env.OPENROUTER_API_KEY) {
+      console.warn("[Startup] OPENROUTER_API_KEY not set — AI generation routes may fail")
     }
 
     // 1. Connect MongoDB (required — fail fast if unavailable)

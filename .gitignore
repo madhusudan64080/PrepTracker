@@ -8,3 +8,7 @@ frontend/.env.local
 frontend/.env*
 logs
 *.log
+
+# next-pwa build artifacts (generated during build)
+frontend/public/sw.js
+frontend/public/workbox-*.js

@@ -26,13 +26,20 @@ export interface SyncPayload {
 type SyncHandler = (payload: SyncPayload) => void
 
 const WS_URL =
-  process.env.NEXT_PUBLIC_WS_URL ?? process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:5000"
+  process.env.NEXT_PUBLIC_WS_URL ??
+  process.env.NEXT_PUBLIC_API_URL ??
+  (process.env.NODE_ENV === "development" ? "http://localhost:5000" : "")
 
 // Singleton socket so multiple hook consumers share one connection
 let socketInstance: Socket | null = null
 const handlers = new Map<SyncEventType, Set<SyncHandler>>()
 
 function getSocket(token: string): Socket {
+  if (!WS_URL) {
+    throw new Error(
+      "[Sync] Missing NEXT_PUBLIC_WS_URL/NEXT_PUBLIC_API_URL in production; refusing to connect to localhost."
+    )
+  }
   if (socketInstance?.connected) return socketInstance
 
   if (socketInstance) {
@@ -130,8 +137,12 @@ export function useSync(
   useEffect(() => {
     if (!accessToken) return
 
-    const socket = getSocket(accessToken)
-    socketRef.current = socket
+    try {
+      const socket = getSocket(accessToken)
+      socketRef.current = socket
+    } catch (e) {
+      console.warn((e as Error)?.message ?? e)
+    }
 
     return () => {
       // Don't disconnect on unmount — socket is a singleton

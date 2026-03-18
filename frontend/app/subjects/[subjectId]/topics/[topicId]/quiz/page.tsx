@@ -4,7 +4,6 @@
 
 import { useParams, useRouter } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
-import { useState } from "react"
 import { useTopicContent } from "@/hooks/useTopicContent"
 import { useQuiz } from "@/hooks/useQuiz"
 import AiThinkingLoader from "@/components/shared/AiThinkingLoader"
@@ -124,12 +123,12 @@ export default function QuizPage() {
   const router = useRouter()
 
   const { content, isGenerating } = useTopicContent(topicId as string)
+  const questions = content?.quiz?.questions ?? []
+  const quizHook = useQuiz(questions, topicId as string)
 
   if (isGenerating || !content) {
     return <AiThinkingLoader />
   }
-
-  const quizHook = useQuiz(content.quiz?.questions ?? [], topicId as string)
 
   const {
     currentQuestion,
