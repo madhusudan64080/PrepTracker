@@ -7,7 +7,9 @@ services:
     region: oregon
     plan: free
     rootDir: backend
-    buildCommand: npm install && npm run build
+    # Render builds with NODE_ENV=production, which makes npm omit devDependencies by default.
+    # TypeScript compilation needs @types/* (devDependencies), so we explicitly include them.
+    buildCommand: npm ci --include=dev && npm run build
     startCommand: node dist/server.js
     healthCheckPath: /health
     envVars:
