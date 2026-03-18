@@ -105,14 +105,27 @@ const result = schedules.map((s:any)=>{
 
 const topic = s.topicId as any
 const subject = topic?.subjectId as any
-const overdue = s.nextReviewDate && s.nextReviewDate < today
+const overdue = Boolean(s.nextReviewDate && s.nextReviewDate < today)
+
+const completedCount = Array.isArray(s.revisionDates)
+  ? s.revisionDates.filter((d: any) => d.status === "completed").length
+  : 0
 
 return {
-scheduleId:s.id,
-topicName: topic?.name,
-subjectName: subject?.name,
-nextReviewDate:s.nextReviewDate,
-status: overdue ? "overdue":"due"
+  scheduleId: s.id,
+  topicId: topic?._id?.toString?.() ?? topic?._id,
+  subjectId: subject?._id?.toString?.() ?? subject?._id,
+  topicName: topic?.name,
+  subjectName: subject?.name,
+  nextReviewDate: s.nextReviewDate,
+  overdue,
+  status: overdue ? "overdue" : "due",
+  // Fields expected by frontend /revision cards
+  lastStudied: topic?.lastStudiedAt ?? s.lastReviewDate ?? s.updatedAt ?? s.createdAt,
+  revisionNumber: completedCount + 1,
+  masteryScore: topic?.masteryScore ?? 0,
+  quizUrl: subject?._id && topic?._id ? `/subjects/${subject._id}/topics/${topic._id}/quiz` : "/revision",
+  flashcardUrl: subject?._id && topic?._id ? `/subjects/${subject._id}/topics/${topic._id}/flashcards` : "/revision"
 }
 })
 
@@ -144,13 +157,24 @@ populate:{path:"subjectId"}
 
 const map:any={}
 
+const startISO = start.toISOString().slice(0,10)
+
 for(const s of schedules){
 
 if(!s.nextReviewDate) continue
 
 const date = s.nextReviewDate.toISOString().slice(0,10)
 
-if(!map[date]) map[date] = { date, count:0, topics:[] }
+if(!map[date]) {
+  const dt = new Date(date + "T00:00:00.000Z")
+  map[date] = {
+    date,
+    day: dt.toLocaleDateString("en-US", { weekday: "short" }),
+    today: date === startISO,
+    count: 0,
+    topics: []
+  }
+}
 map[date].count++
 const topic = s.topicId as any
 const subject = topic?.subjectId as any

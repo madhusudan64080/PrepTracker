@@ -76,7 +76,7 @@ export async function overdueRevisions(req: Request, res: Response, next: NextFu
   try {
     const revisions = await revisionService.getTodaysRevisions(req.user!.userId)
     const overdue = Array.isArray(revisions)
-      ? revisions.filter((r: any) => r.overdue === true)
+      ? revisions.filter((r: any) => r.overdue === true || r.status === "overdue")
       : []
     res.json({ success: true, data: overdue })
   } catch (err) {
