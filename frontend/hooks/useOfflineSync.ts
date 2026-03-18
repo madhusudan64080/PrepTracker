@@ -39,7 +39,13 @@ async function replayAction(action: QueuedAction): Promise<void> {
       break
 
     case "goal:studyTime":
+<<<<<<< HEAD
       await api.post("/api/goals/log-time", { minutes: payload.minutes })
+=======
+      // FIX: was "/api/goals/log-time" which doesn't exist.
+      // The actual endpoint defined in apiServices.ts is "/api/goals/log".
+      await api.post("/api/goals/log", { minutes: payload.minutes })
+>>>>>>> 48fc2b9 (Updated full project with new content)
       break
 
     default:

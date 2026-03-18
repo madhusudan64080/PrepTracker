@@ -20,7 +20,10 @@
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
+<<<<<<< HEAD
   "@google/generative-ai": "^0.21.0",
+=======
+>>>>>>> 48fc2b9 (Updated full project with new content)
   "axios": "^1.13.6",
   "bcryptjs": "^2.4.3",
   "bullmq": "^5.4.2",

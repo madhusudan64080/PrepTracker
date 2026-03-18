@@ -40,8 +40,20 @@ export async function connectDB() {
 }
 
 export async function connectRedis() {
+<<<<<<< HEAD
 
   redisClient = new Redis(process.env.REDIS_URL as string)
+=======
+  // FIX: Upstash uses rediss:// (TLS). The plain `new Redis(url)` call
+  // doesn't pass rejectUnauthorized:false, causing the TLS handshake to
+  // fail silently. Add explicit TLS options when the URL uses rediss://.
+  redisClient = new Redis(process.env.REDIS_URL as string, {
+    maxRetriesPerRequest: null,
+    tls: process.env.REDIS_URL?.startsWith("rediss://")
+      ? { rejectUnauthorized: false }
+      : undefined
+  })
+>>>>>>> 48fc2b9 (Updated full project with new content)
 
   redisClient.on("connect", () => {
     console.log("Redis connected")

@@ -22,6 +22,10 @@ import SkeletonLoader        from "@/components/shared/SkeletonLoader"
 import StatCard              from "@/components/shared/StatCard"
 import CreateSubjectModal    from "@/components/subject/CreateSubjectModal"
 import TodayGoals            from "@/components/dashboard/TodayGoals"
+<<<<<<< HEAD
+=======
+import OverdueNotificationBanner from "@/components/shared/OverdueNotificationBanner" 
+>>>>>>> 48fc2b9 (Updated full project with new content)
 
 /* ─── animation helpers ─────────────────────────────────────── */
 const fade = { hidden: { opacity: 0, y: 10 }, show: { opacity: 1, y: 0 } }
@@ -129,6 +133,10 @@ function SubjectGrid({ onAddSubject }: { onAddSubject: () => void }) {
           </button>
         </div>
       ) : (
+<<<<<<< HEAD
+=======
+        <OverdueNotificationBanner />
+>>>>>>> 48fc2b9 (Updated full project with new content)
         <motion.div variants={container} initial="hidden" animate="show"
           className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-3">
           {subjects.map(s => {
@@ -482,7 +490,11 @@ export default function DashboardPage() {
       {showAddSubject && (
         <CreateSubjectModal
           isOpen={showAddSubject}
+<<<<<<< HEAD
           onClose={() => { setShowAddSubject(false); fetchSubjects() }}
+=======
+          onClose={() => { setShowAddSubject(false); fetchSubjects(true) }}
+>>>>>>> 48fc2b9 (Updated full project with new content)
         />
       )}
     </div>

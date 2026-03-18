@@ -13,9 +13,18 @@ export function getReminderQueue(): Queue<ReminderJob> {
   if (!reminderQueue) {
     reminderQueue = new Queue<ReminderJob>(REMINDER_QUEUE, {
       connection: new (require("ioredis"))(process.env.REDIS_URL, {
+<<<<<<< HEAD
   maxRetriesPerRequest: null,
   tls: process.env.REDIS_URL?.startsWith("rediss://") ? {} : undefined
 }),
+=======
+        maxRetriesPerRequest: null,
+        // FIX: Upstash rediss:// requires explicit TLS with rejectUnauthorized:false
+        tls: process.env.REDIS_URL?.startsWith("rediss://")
+          ? { rejectUnauthorized: false }
+          : undefined
+      }),
+>>>>>>> 48fc2b9 (Updated full project with new content)
       defaultJobOptions: {
         removeOnComplete: 50,
         removeOnFail: 20,

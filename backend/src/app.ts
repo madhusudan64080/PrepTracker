@@ -1,6 +1,10 @@
 // backend/src/app.ts
 
 import express, { Application, Request, Response, NextFunction } from "express"
+<<<<<<< HEAD
+=======
+import compression from "compression"
+>>>>>>> 48fc2b9 (Updated full project with new content)
 import helmet from "helmet"
 import cors from "cors"
 import cookieParser from "cookie-parser"
@@ -31,6 +35,10 @@ const app: Application = express()
 ------------------------------ */
 
 app.use(helmet())
+<<<<<<< HEAD
+=======
+app.use(compression())
+>>>>>>> 48fc2b9 (Updated full project with new content)
 
 const ALLOWED_ORIGINS = [
   process.env.FRONTEND_URL,

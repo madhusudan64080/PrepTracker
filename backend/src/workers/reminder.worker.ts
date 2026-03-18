@@ -151,9 +151,19 @@ export function startReminderWorker(): void {
     processReminder,
     {
       connection: new (require("ioredis"))(process.env.REDIS_URL, {
+<<<<<<< HEAD
   maxRetriesPerRequest: null,
   tls: process.env.REDIS_URL?.startsWith("rediss://") ? {} : undefined
 }),
+=======
+        maxRetriesPerRequest: null,
+        // FIX: Upstash requires TLS with rejectUnauthorized:false for rediss:// URLs.
+        // Empty `{}` was insufficient — the TLS handshake would fail silently.
+        tls: process.env.REDIS_URL?.startsWith("rediss://")
+          ? { rejectUnauthorized: false }
+          : undefined
+      }),
+>>>>>>> 48fc2b9 (Updated full project with new content)
       concurrency: 5
     }
   )
