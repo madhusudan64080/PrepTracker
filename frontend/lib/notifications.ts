@@ -1,14 +1,3 @@
-<<<<<<< HEAD
-export async function requestNotificationPermission(): Promise<boolean> {
-
-  if (!('Notification' in window)) return false
-
-  const permission = await Notification.requestPermission()
-
-  return permission === 'granted'
-}
-
-=======
 // frontend/lib/notifications.ts
 //
 // Notification system for PrepTrack:
@@ -31,27 +20,11 @@ export async function requestNotificationPermission(): Promise<boolean> {
 }
 
 /* ── Revision Reminder ──────────────────────────────────────── */
->>>>>>> 48fc2b9 (Updated full project with new content)
 
 export async function scheduleRevisionReminder(
   time: string,
   topicsDue: number = 0
 ): Promise<void> {
-<<<<<<< HEAD
-
-  if (!('serviceWorker' in navigator)) return
-
-  const permission = await requestNotificationPermission()
-
-  if (!permission) return
-
-  const [hour, minute] = parseTime(time)
-
-  const now = new Date()
-
-  const reminder = new Date()
-
-=======
   if (typeof window === "undefined") return
   if (!("serviceWorker" in navigator)) return
 
@@ -61,7 +34,6 @@ export async function scheduleRevisionReminder(
   const [hour, minute] = parseTime(time)
   const now = new Date()
   const reminder = new Date()
->>>>>>> 48fc2b9 (Updated full project with new content)
   reminder.setHours(hour)
   reminder.setMinutes(minute)
   reminder.setSeconds(0)
@@ -71,57 +43,6 @@ export async function scheduleRevisionReminder(
   }
 
   const delay = reminder.getTime() - now.getTime()
-<<<<<<< HEAD
-
-  const registration = await navigator.serviceWorker.ready
-
-  setTimeout(() => {
-
-    registration.showNotification('PrepTrack Reminder', {
-      body: `Time to revise! You have ${topicsDue} topics due today.`,
-      icon: '/icons/icon-192.png',
-      badge: '/icons/icon-72.png',
-      tag: 'revision-reminder',
-      requireInteraction: true
-    })
-
-  }, delay)
-}
-
-
-export function cancelScheduledReminder(): void {
-
-  if (!('serviceWorker' in navigator)) return
-
-  navigator.serviceWorker.ready.then((registration) => {
-
-    registration.getNotifications({
-      tag: 'revision-reminder'
-    }).then((notifications) => {
-
-      notifications.forEach((n) => n.close())
-
-    })
-
-  })
-}
-
-
-function parseTime(time: string): [number, number] {
-
-  const match = time.match(/(\d+)\s*(AM|PM)/i)
-
-  if (!match) return [21, 0]
-
-  let hour = parseInt(match[1])
-  const period = match[2].toUpperCase()
-
-  if (period === 'PM' && hour !== 12) hour += 12
-  if (period === 'AM' && hour === 12) hour = 0
-
-  return [hour, 0]
-}
-=======
   const registration = await navigator.serviceWorker.ready
 
   setTimeout(() => {
@@ -236,4 +157,3 @@ function parseTime(time: string): [number, number] {
   if (period === "AM" && hour === 12) hour = 0
   return [hour, 0]
 }
->>>>>>> 48fc2b9 (Updated full project with new content)

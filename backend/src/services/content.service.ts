@@ -206,10 +206,6 @@ async function getProjectStageContent(
   stageNumber,
   `Stage ${stageNumber}`
 )
-<<<<<<< HEAD
-const cacheKey = `project:${projectId}:stage:${stageNumber}`
-=======
->>>>>>> 48fc2b9 (Updated full project with new content)
   return ProjectStageContent.create({ projectId, stageNumber, ...data })
 }
 

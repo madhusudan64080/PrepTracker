@@ -30,11 +30,6 @@ let io: SocketServer
  * tabs/devices receive it immediately.
  */
 export function initSocket(httpServer: HttpServer): SocketServer {
-<<<<<<< HEAD
-  io = new SocketServer(httpServer, {
-    cors: {
-      origin: process.env.FRONTEND_URL,
-=======
   // FIX: match the same CORS policy as app.ts — allow FRONTEND_URL and
   // all *.vercel.app preview deployments so WebSocket connections from
   // preview URLs aren't blocked (a single string origin would reject them).
@@ -52,7 +47,6 @@ export function initSocket(httpServer: HttpServer): SocketServer {
         )
         callback(allowed ? null : new Error("Not allowed by CORS"), allowed)
       },
->>>>>>> 48fc2b9 (Updated full project with new content)
       credentials: true
     },
     // Use polling as fallback when WebSocket is blocked

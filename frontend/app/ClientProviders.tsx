@@ -9,17 +9,9 @@ import ToastContainer from "@/components/shared/Toast";
 
 function ThemeProvider({ children }: { children: ReactNode }) {
   const { theme } = uiStore();
-<<<<<<< HEAD
-
   useEffect(() => {
     document.documentElement.classList.toggle("dark", theme === "dark");
   }, [theme]);
-
-=======
-  useEffect(() => {
-    document.documentElement.classList.toggle("dark", theme === "dark");
-  }, [theme]);
->>>>>>> 48fc2b9 (Updated full project with new content)
   return <>{children}</>;
 }
 
@@ -28,20 +20,6 @@ function AuthProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const validateSession = async () => {
-<<<<<<< HEAD
-      setLoading(true);
-      try {
-        const res = await authService.refreshToken();
-        if (res?.data?.accessToken) {
-          setAccessToken(res.data.accessToken);
-          const meRes = await authService.getMe();
-          if (meRes?.data) {
-            setUser(meRes.data);
-          }
-        }
-      } catch {
-        // Not logged in or token expired - clear auth state
-=======
       // FIX (Auto-logout bug):
       // OLD: setLoading(true) was called first, which cleared the persisted
       //      isAuthenticated flag from localStorage, causing ProtectedRoute to
@@ -69,7 +47,6 @@ function AuthProvider({ children }: { children: ReactNode }) {
         }
       } catch {
         // No refresh cookie or network error — clear auth state
->>>>>>> 48fc2b9 (Updated full project with new content)
         logout();
       } finally {
         setLoading(false);
@@ -77,10 +54,7 @@ function AuthProvider({ children }: { children: ReactNode }) {
     };
 
     validateSession();
-<<<<<<< HEAD
-=======
     // eslint-disable-next-line react-hooks/exhaustive-deps
->>>>>>> 48fc2b9 (Updated full project with new content)
   }, []);
 
   return <>{children}</>;

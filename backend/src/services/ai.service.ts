@@ -27,17 +27,6 @@ class AIService {
   private readonly FALLBACK_MODEL = "openai/gpt-4o-mini";
  
   private selectModel(prompt: string): string {
-<<<<<<< HEAD
-
-  const len = prompt.length
-
-  if (len > 2200) return "google/gemini-2.0-flash-001"
-
-  if (len > 900) return "openai/gpt-4o-mini"
-
-  return "google/gemini-2.0-flash-001"
-}
-=======
     // FIX: previous logic had both the <900 and >2200 branches returning Gemini,
     // making the gpt-4o-mini cost-saving branch (900–2200 chars) dead code.
     // Corrected: medium-length prompts use the cheaper gpt-4o-mini.
@@ -45,7 +34,6 @@ class AIService {
     if (len > 900 && len <= 2200) return "openai/gpt-4o-mini"
     return "google/gemini-2.0-flash-001"
   }
->>>>>>> 48fc2b9 (Updated full project with new content)
   private axiosInstance = axios.create({
     baseURL: OPENROUTER_URL,
     headers: {

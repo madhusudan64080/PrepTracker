@@ -1,11 +1,7 @@
 'use client'
 
 import { motion, AnimatePresence } from "framer-motion"
-<<<<<<< HEAD
-import { useState } from "react"
-=======
 import { useState, useEffect } from "react"
->>>>>>> 48fc2b9 (Updated full project with new content)
 import { X, ArrowRight } from "lucide-react"
 
 interface Props {
@@ -14,11 +10,8 @@ interface Props {
   onSelect: (method: string) => void
   topicName: string
   hasAttempted: boolean
-<<<<<<< HEAD
-=======
   // FIX: pass the current method so the modal pre-selects it on re-open
   currentMethod?: string | null
->>>>>>> 48fc2b9 (Updated full project with new content)
 }
 
 const methods = [
@@ -61,11 +54,6 @@ export default function LearningMethodModal({
   onClose,
   onSelect,
   topicName,
-<<<<<<< HEAD
-  hasAttempted
-}: Props) {
-  const [selected, setSelected] = useState<string | null>(null)
-=======
   hasAttempted,
   currentMethod
 }: Props) {
@@ -87,7 +75,6 @@ export default function LearningMethodModal({
     // FIX: close the modal after confirming selection (prevents double-fire)
     onClose()
   }
->>>>>>> 48fc2b9 (Updated full project with new content)
 
   if (!isOpen) return null
 
@@ -124,11 +111,7 @@ export default function LearningMethodModal({
               <motion.button
                 key={m.key}
                 whileTap={{ scale: 0.99 }}
-<<<<<<< HEAD
-                onClick={() => setSelected(m.key)}
-=======
                 onClick={() => handleSelect(m.key)}
->>>>>>> 48fc2b9 (Updated full project with new content)
                 className={`w-full text-left p-3.5 rounded-xl border transition-all ${
                   selected === m.key
                     ? "bg-indigo-500/15 border-indigo-500/50"
@@ -158,11 +141,7 @@ export default function LearningMethodModal({
           {/* CTA */}
           <button
             disabled={!selected}
-<<<<<<< HEAD
-            onClick={() => selected && onSelect(selected)}
-=======
             onClick={handleStart}
->>>>>>> 48fc2b9 (Updated full project with new content)
             className="mt-5 w-full flex items-center justify-center gap-2 py-3 bg-indigo-600 hover:bg-indigo-500 disabled:opacity-40 disabled:cursor-not-allowed rounded-xl text-sm font-semibold transition-colors"
           >
             Start Learning
@@ -178,8 +157,4 @@ export default function LearningMethodModal({
       </div>
     </AnimatePresence>
   )
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 48fc2b9 (Updated full project with new content)

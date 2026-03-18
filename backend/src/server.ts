@@ -1,59 +1,19 @@
 // backend/src/server.ts
 import "dotenv/config"
-<<<<<<< HEAD
-
-
-import http from "http"
-
-import app from "./app"
-import { connectDB, connectRedis, redisClient } from "./config/database"
-=======
 import http from "http"
 import app from "./app"
 import { connectDB } from "./config/database"
->>>>>>> 48fc2b9 (Updated full project with new content)
 import { initSocket } from "./socket/socket.server"
 import { startReminderWorker, stopReminderWorker } from "./workers/reminder.worker"
 import { scheduleGlobalReminders } from "./jobs/reminder.scheduler"
 
 const PORT = Number(process.env.PORT) || 5000
-<<<<<<< HEAD
-const ENV = process.env.NODE_ENV || "development"
-=======
 const ENV  = process.env.NODE_ENV || "development"
->>>>>>> 48fc2b9 (Updated full project with new content)
 
 let server: http.Server
 
 async function startServer() {
   try {
-<<<<<<< HEAD
-    // 1. Connect persistence layer
-    await connectDB()
-    await connectRedis()
-
-    const ping = await redisClient.ping()
-    console.log("Redis ping:", ping)
-
-    // 2. Create HTTP server
-    server = http.createServer(app)
-
-    // 3. Bootstrap Socket.io (must be before server.listen)
-    initSocket(server)
-    console.log("[Socket.io] WebSocket server initialized")
-
-    // 4. Start BullMQ reminder worker
-    startReminderWorker()
-
-    // 5. Register global cron reminder jobs
-    await scheduleGlobalReminders()
-
-    // 6. Start listening
-    server.listen(PORT, () => {
-      console.log(
-        `PrepTrack API running on port ${PORT} in ${ENV} environment`
-      )
-=======
     // 0. Validate required environment variables — fail fast before any I/O
     const REQUIRED_ENV = [
       "MONGO_URI",
@@ -108,7 +68,6 @@ async function startServer() {
     // 6. Start listening
     server.listen(PORT, () => {
       console.log(`PrepTrack API running on port ${PORT} in ${ENV} environment`)
->>>>>>> 48fc2b9 (Updated full project with new content)
     })
   } catch (error) {
     console.error("Failed to start server:", error)
@@ -116,16 +75,6 @@ async function startServer() {
   }
 }
 
-<<<<<<< HEAD
-/* -------------------------
-   Graceful Shutdown
--------------------------- */
-
-async function shutdown() {
-  console.log("Shutting down server...")
-
-  await stopReminderWorker()
-=======
 /* ── Graceful Shutdown ─────────────────────────────────────── */
 async function shutdown() {
   console.log("Shutting down server...")
@@ -133,7 +82,6 @@ async function shutdown() {
   try {
     await stopReminderWorker()
   } catch { /* ignore */ }
->>>>>>> 48fc2b9 (Updated full project with new content)
 
   if (server) {
     server.close(async () => {
@@ -141,14 +89,10 @@ async function shutdown() {
         const mongoose = (await import("mongoose")).default
         await mongoose.disconnect()
 
-<<<<<<< HEAD
-        await redisClient.quit()
-=======
         try {
           const { redisClient } = await import("./config/database")
           await redisClient?.quit()
         } catch { /* redis may not be connected */ }
->>>>>>> 48fc2b9 (Updated full project with new content)
 
         console.log("Shutdown complete")
         process.exit(0)
@@ -157,21 +101,12 @@ async function shutdown() {
         process.exit(1)
       }
     })
-<<<<<<< HEAD
-=======
   } else {
     process.exit(0)
->>>>>>> 48fc2b9 (Updated full project with new content)
   }
 }
 
 process.on("SIGTERM", shutdown)
-<<<<<<< HEAD
-process.on("SIGINT", shutdown)
-
-startServer()
-=======
 process.on("SIGINT",  shutdown)
 
 startServer()
->>>>>>> 48fc2b9 (Updated full project with new content)

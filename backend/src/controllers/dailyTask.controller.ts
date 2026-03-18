@@ -47,9 +47,6 @@ export async function completeTask(
   } catch (err) {
     next(err)
   }
-<<<<<<< HEAD
-}
-=======
 }
 
 /* ── GET overdue tasks — used by the delay notification system ────────────── */
@@ -66,4 +63,3 @@ export async function getOverdueTasks(
     next(err)
   }
 }
->>>>>>> 48fc2b9 (Updated full project with new content)

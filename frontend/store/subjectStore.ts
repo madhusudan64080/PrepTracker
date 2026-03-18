@@ -19,14 +19,9 @@ interface SubjectState {
   isLoading: boolean;
   error: string | null;
   selectedSubjectId: string | null;
-<<<<<<< HEAD
-
-  fetchSubjects: () => Promise<void>;
-=======
   lastFetched: number | null; // timestamp — used to debounce redundant fetches
 
   fetchSubjects: (force?: boolean) => Promise<void>;
->>>>>>> 48fc2b9 (Updated full project with new content)
   addSubject: (data: { name: string; color?: string; icon?: string; description?: string }) => Promise<Subject | null>;
   updateSubject: (id: string, data: Partial<Subject>) => Promise<void>;
   deleteSubject: (id: string) => Promise<void>;
@@ -38,10 +33,6 @@ export const subjectStore = create<SubjectState>((set, get) => ({
   isLoading: false,
   error: null,
   selectedSubjectId: null,
-<<<<<<< HEAD
-
-  fetchSubjects: async () => {
-=======
   lastFetched: null,
 
   fetchSubjects: async (force = false) => {
@@ -50,7 +41,6 @@ export const subjectStore = create<SubjectState>((set, get) => ({
     if (isLoading) return
     if (!force && lastFetched && Date.now() - lastFetched < 30_000) return
 
->>>>>>> 48fc2b9 (Updated full project with new content)
     set({ isLoading: true, error: null });
 
     try {
@@ -59,12 +49,8 @@ export const subjectStore = create<SubjectState>((set, get) => ({
 
       set({
         subjects: Array.isArray(data) ? data : [],
-<<<<<<< HEAD
-        isLoading: false
-=======
         isLoading: false,
         lastFetched: Date.now()
->>>>>>> 48fc2b9 (Updated full project with new content)
       });
     } catch (err) {
       set({

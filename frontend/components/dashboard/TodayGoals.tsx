@@ -10,11 +10,7 @@
 
 "use client"
 
-<<<<<<< HEAD
-import { useState } from "react"
-=======
 import { useState, useEffect } from "react"
->>>>>>> 48fc2b9 (Updated full project with new content)
 import { useRouter } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
 import {
@@ -228,8 +224,6 @@ export default function TodayGoals() {
     setSelectedSubject(null)
   }
 
-<<<<<<< HEAD
-=======
   // FIX 6: Keep the drill-down view in sync when task data refreshes.
   // After a completion the server returns fresh data; we find the updated
   // group for the currently selected subject and update it in place,
@@ -249,7 +243,6 @@ export default function TodayGoals() {
     }
   }, [data, activeSection])
 
->>>>>>> 48fc2b9 (Updated full project with new content)
   const handleNavigate = (subjectId: string, topicId: string) => {
     router.push(`/subjects/${subjectId}/topics/${topicId}/learn`)
   }
@@ -259,16 +252,11 @@ export default function TodayGoals() {
     revisionCycle?: string
   ) => {
     await completeTask(topicId, activeSection, revisionCycle)
-<<<<<<< HEAD
-    // Reset drill-down so user sees updated subject list
-    setSelectedSubject(null)
-=======
     // FIX 6: After completing a task, stay inside the subject drill-down view
     // so the user can tick off the next topic without navigating back each time.
     // We update selectedSubject from the fresh data returned by completeTask
     // so the completed topic's status updates in place.
     // setSelectedSubject(null) is intentionally NOT called here.
->>>>>>> 48fc2b9 (Updated full project with new content)
   }
 
   /* counts for tab badges */

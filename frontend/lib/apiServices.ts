@@ -295,15 +295,12 @@ export const dailyTaskService = {
   /** Fetch full today's goals: study, revision, pending + progress counts */
   getToday: () => api.get("/api/daily-tasks/today"),
 
-<<<<<<< HEAD
-=======
   /**
    * Fetch overdue tasks (past days still pending) for the delay notification system.
    * Returns OverdueTaskInfo[] from the backend.
    */
   getOverdue: () => api.get("/api/daily-tasks/overdue"),
 
->>>>>>> 48fc2b9 (Updated full project with new content)
   /** Mark a task as completed */
   complete: (data: {
     topicId:      string;

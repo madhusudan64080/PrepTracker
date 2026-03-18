@@ -19,12 +19,9 @@ interface AuthState {
   user: User | null;
   accessToken: string | null;
   isAuthenticated: boolean;
-<<<<<<< HEAD
-=======
   // FIX: isLoading starts true and is set to false by ClientProviders
   // after the refresh-token check completes. This prevents ProtectedRoute
   // from redirecting to /login before the session is validated.
->>>>>>> 48fc2b9 (Updated full project with new content)
   isLoading: boolean;
 
   setUser: (user: User | null) => void;
@@ -40,11 +37,7 @@ export const authStore = create<AuthState>()(
       user: null,
       accessToken: null,
       isAuthenticated: false,
-<<<<<<< HEAD
-      isLoading: true,
-=======
       isLoading: true, // always start loading — ClientProviders resolves this
->>>>>>> 48fc2b9 (Updated full project with new content)
 
       setUser: (user) =>
         set({
@@ -79,11 +72,6 @@ export const authStore = create<AuthState>()(
     {
       name: "auth-storage",
       storage: createJSONStorage(() => localStorage),
-<<<<<<< HEAD
-      partialize: (state) => ({
-        user: state.user,
-        isAuthenticated: state.isAuthenticated
-=======
       // Only persist user identity — never persist isLoading or accessToken
       partialize: (state) => ({
         user: state.user,
@@ -97,7 +85,6 @@ export const authStore = create<AuthState>()(
         ...persisted,
         isLoading: true,    // override — always validate on startup
         accessToken: null   // always null until refreshed
->>>>>>> 48fc2b9 (Updated full project with new content)
       })
     }
   )

@@ -4,10 +4,7 @@ const withPWA = require('next-pwa')({
   dest: 'public',
   register: true,
   skipWaiting: true,
-<<<<<<< HEAD
-=======
   // Disable SW in development — avoids stale-cache confusion during dev
->>>>>>> 48fc2b9 (Updated full project with new content)
   disable: process.env.NODE_ENV === 'development',
   runtimeCaching: [
     {
@@ -42,11 +39,6 @@ const withPWA = require('next-pwa')({
 
 const nextConfig = {
   reactStrictMode: true,
-<<<<<<< HEAD
-  // Ensure client components work properly
-  experimental: {
-    // appDir is stable in Next 14
-=======
 
   // Correct cache headers for the service worker and workbox bundle.
   // Without these, browsers may cache an old SW indefinitely.
@@ -66,7 +58,6 @@ const nextConfig = {
         ]
       }
     ]
->>>>>>> 48fc2b9 (Updated full project with new content)
   }
 }
 
